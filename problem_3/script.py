@@ -1,41 +1,40 @@
 #!env/bin/python
 
+import sys
+
 nbr = 600851475143
-#nbr = 13195
-primes=[]
 
-def isprime(num):
-  if num == 0 or num == 1:
-    return True
-  for x in primes:
-    if num % x == 0:
-      return False
-  if num in primes:
-    return True
-  else:
-    primes.append(num)
-    return True
-
-def factors(num):
-  MAX = num/2
-  x = 2
-  result=[]
-  while x < MAX:
-    if num % x == 0:
-      for x1 in (factors(num/x)):
-        if x1 not in result:
-          result.append(x1)
-      if x not in result:
-        result.append(x)
+def uniq(sortedlist):
+  result = [sortedlist[0]]
+  x = 3
+  while x < len(sortedlist):
+    if sortedlist[x-1] < sortedlist[x]:
+      result.append(sortedlist[x])
     x += 1
   return result
 
-result = 1
-to_check=factors(nbr)
-print "Done Factoring"
-for x in to_check:
-  if isprime(x) and x > 0:
-    if nbr % x == 0 and x > result:
-      result = x
+def factors(num):
+  x = 2
+  MAX = num / 2
+  result = []
+  while num % x != 0 and x < MAX:
+    x += 1
+    if x % 1000000 == 0 or x < 1000000:
+      sys.stdout.write('\r')
+      sys.stdout.write("X: "+str(x))
+      sys.stdout.flush()
+  if x >= MAX:
+    return num
+  else:
+    sys.stdout.write('\r')
+    print "Factor: "+str(x)+", "+str(num/x)
+    calc = factors(num/x)
+    if type(calc) == type([]):
+      result.extend(calc)
+    else:
+      result.append(calc)
+    return result
 
-print result
+result = factors(nbr)
+result.sort()
+print uniq(result)
