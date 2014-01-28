@@ -1,0 +1,5 @@
+A palindromic number is one which is the same forwards and backwards.
+
+9009 is the largest PN which is the product of two two-digit numbers (91*99)
+
+Find the largest PN which is the product of two three-digit numbers
