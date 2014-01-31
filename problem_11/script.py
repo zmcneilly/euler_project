@@ -37,19 +37,19 @@ while x < 20:
 	y = 0
 	while y < 20:
 		# Right
-		t = rows[x][y] * rows[check_num(x,19,1)][y] * rows[check_num(x,19,2)][y] * rows[check_num(x,19,3)][y] * rows[check_num(x,19,4)][y]
+		t = rows[x][y] * rows[check_num(x,19,1)][y] * rows[check_num(x,19,2)][y] * rows[check_num(x,19,3)][y]
 		if t > result:
 			result = t
 		# Down
-		t = rows[x][y] * rows[x][check_num(y,19,1)] * rows[x][check_num(y,19,2)] * 			rows[x][check_num(y,19,3)] * rows[x][check_num(y,19,4)]
+		t = rows[x][y] * rows[x][check_num(y,19,1)] * rows[x][check_num(y,19,2)] * 			rows[x][check_num(y,19,3)]
 		if t > result:
 			result = t
 		# Diagonal R2L
-		t = rows[x][y] * rows[check_num(x,19,-1)][check_num(y,19,1)] * rows[check_num(x,19,-2)][check_num(y,19,2)] * rows[check_num(x,19,-3)][check_num(y,19,3)] * rows[check_num(x,19,-4)][check_num(y,19,4)]
+		t = rows[x][y] * rows[check_num(x,19,-1)][check_num(y,19,1)] * rows[check_num(x,19,-2)][check_num(y,19,2)] * rows[check_num(x,19,-3)][check_num(y,19,3)]
 		if t > result:
 			result = t
 		# Diagonal L2R
-		t = rows[x][y] * rows[check_num(x,19,1)][check_num(y,19,1)] * rows[check_num(x,19,2)][check_num(y,19,2)] * rows[check_num(x,19,3)][check_num(y,19,3)] * rows[check_num(x,19,4)][check_num(y,19,4)]
+		t = rows[x][y] * rows[check_num(x,19,1)][check_num(y,19,1)] * rows[check_num(x,19,2)][check_num(y,19,2)] * rows[check_num(x,19,3)][check_num(y,19,3)]
 		if t > result:
 			result = t
 		y += 1
