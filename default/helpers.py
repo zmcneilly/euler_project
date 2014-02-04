@@ -67,3 +67,13 @@ def collatz_cnt(n):
     else:
         collatz_cache[n] = 1+collatz_cnt(3*n+1)
     return collatz_cache[n]
+
+def factorial(n):
+    if n == 1:
+        return 1
+    else:
+        return n * factorial(n-1)
+
+def n_choose_r(n,r):
+    """How many combinations with r items can be made from the n given items"""
+    return factorial(n)/(factorial(r)*factorial(n-r))
