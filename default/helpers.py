@@ -77,3 +77,34 @@ def factorial(n):
 def n_choose_r(n,r):
     """How many combinations with r items can be made from the n given items"""
     return factorial(n)/(factorial(r)*factorial(n-r))
+
+def sum_of_digits(n):
+    """Return the sum of the digits of the number"""
+    o = str(n)
+    result = 0
+    for x in o:
+        result += int(x)
+    return result
+
+def sum_of_divisors(n):
+    result = 0
+    for x in find_factors(n):
+        if x < n:
+            result += x
+    return result
+
+def is_amicable(n):
+    result = -1
+    dn = sum_of_divisors(n)
+    dn1 = sum_of_divisors(dn)
+    if n == dn1 and dn != dn1:
+        result = dn
+    return result
+
+def alphabetic_value(name):
+    lname = name.lower()
+    result = 0
+    for char in lname:
+        result += ord(char) - 96
+    return result
+
