@@ -108,3 +108,12 @@ def alphabetic_value(name):
         result += ord(char) - 96
     return result
 
+def is_abundant(n):
+    result = 0
+    for x in find_factors(n):
+        if x < n:
+            result += x
+    if result > x:
+        return True
+    else:
+        return False
