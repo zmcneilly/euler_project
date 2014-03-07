@@ -117,3 +117,38 @@ def is_abundant(n):
         return True
     else:
         return False
+
+def permute(xs, low=0):
+    if low + 1 >= len(xs):
+        yield xs
+    else:
+        for p in permute(xs, low + 1):
+            yield p
+        for i in range(low + 1, len(xs)):
+            xs[low], xs[i] = xs[i], xs[low]
+            for p in permute(xs,low + 1):
+                yield p
+            xs[low], xs[i] = xs[i], xs[low]
+
+def zmute(s, goal):
+    if len(s) == 1:
+        return s[0]
+    elif goal == 1:
+        result = ''
+        for x in s:
+            result = result+str(x)
+        return result
+    else:
+        steps = factorial(len(s)-1)
+        if goal >= steps:
+            pos = ((goal-1) / steps)
+            goal = goal - (steps*pos)
+        else:
+            pos = 0
+        s0 = s[pos]
+        s1 = []
+        for x in s:
+            if x != s0:
+                s1.append(x)
+        return str(s0)+str(zmute(s1,goal))
+
