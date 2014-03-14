@@ -109,14 +109,26 @@ def alphabetic_value(name):
     return result
 
 def is_abundant(n):
+    result = 1
+    MAX = int(sqrt(n))
+    for i in range(2,MAX+1,1):
+      if n % i == 0:
+        result+=i
+        if i != (n/i):
+            result+=(n/i)
+        if result > n:
+            return True
+    return False
+
+def o_is_abundant(n):
     result = 0
-    for x in find_factors(n):
+    for x in set(find_factors(n)):
         if x < n:
             result += x
-    if result > x:
+    if result > n:
         return True
     else:
-        return False
+        return False 
 
 def permute(xs, low=0):
     if low + 1 >= len(xs):
