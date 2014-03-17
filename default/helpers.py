@@ -1,5 +1,6 @@
 #!env/bin/python
-from math import sqrt
+from math import sqrt,floor,log10
+import decimal
 collatz_cache = {}
 
 def triangle_num(n):
@@ -164,3 +165,20 @@ def zmute(s, goal):
                 s1.append(x)
         return str(s0)+str(zmute(s1,goal))
 
+
+def fibonacci_r(n):
+    """This is an implementation of Wikipedia's formula for estimating a
+    Fibonacci number at index 'n' through use of rounding"""
+    phi = (1 + sqrt(5))/2
+    if n >= 0:
+        return \
+        ((pow(decimal.Decimal(phi),decimal.Decimal(n))/decimal.Decimal(sqrt(5)))+\
+        decimal.Decimal(.5)).to_integral_exact(rounding=decimal.ROUND_FLOOR)
+    else:
+        return 0
+
+def num_digits(n):
+    """This function is intended to return the number of digits of n"""
+    d = decimal.Decimal(n)
+    l = d.log10().to_integral_exact(rounding=decimal.ROUND_FLOOR)
+    return l + 1
