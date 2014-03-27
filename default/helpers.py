@@ -1,6 +1,6 @@
 #!env/bin/python
-from math import sqrt,floor,log10
-import decimal
+from math import sqrt,floor,log10,factorial
+import decimal,random
 collatz_cache = {}
 
 def triangle_num(n):
@@ -12,6 +12,8 @@ def triangle_num(n):
   return result
 
 def find_factors(n):
+  if n < 0:
+      n = n * -1
   factors=[]
   MAX = int(sqrt(n))+1
   for i in range(1,MAX,1):
@@ -21,10 +23,19 @@ def find_factors(n):
   return factors
 
 def is_prime(n):
-    if n in find_primes(n):
-        return True
-    else:
+    if n < 0:
+        n = n*-1
+    if n <= 1:
         return False
+    elif n == 2:
+        return True
+    if n % 2 == 0:
+        return False
+    MAX = int(sqrt(n))+1
+    for i in range(3,MAX,2):
+        if n % i == 0:
+            return False
+    return True
 
 def find_primes(MAX):
     result = 0
@@ -33,7 +44,7 @@ def find_primes(MAX):
     for x in xrange(2,MAX+1,1):
       primes[x] = True
 
-    for i in range(2,int(math.sqrt(MAX))+1,1):
+    for i in range(2,int(sqrt(MAX))+1,1):
       if primes[i]:
         for j in range(i*i,MAX+1,i):
           primes[j] = False
@@ -42,7 +53,7 @@ def find_primes(MAX):
       if primes[x]:
         result += x
 
-    return result
+    return primes
 
 def collatz_seq(n):
     result = []
@@ -68,12 +79,6 @@ def collatz_cnt(n):
     else:
         collatz_cache[n] = 1+collatz_cnt(3*n+1)
     return collatz_cache[n]
-
-def factorial(n):
-    if n == 1:
-        return 1
-    else:
-        return n * factorial(n-1)
 
 def n_choose_r(n,r):
     """How many combinations with r items can be made from the n given items"""
@@ -142,7 +147,7 @@ def permute(xs, low=0):
             for p in permute(xs,low + 1):
                 yield p
             xs[low], xs[i] = xs[i], xs[low]
-
+        
 def zmute(s, goal):
     if len(s) == 1:
         return s[0]
@@ -182,3 +187,32 @@ def num_digits(n):
     d = decimal.Decimal(n)
     l = d.log10().to_integral_exact(rounding=decimal.ROUND_FLOOR)
     return l + 1
+
+def is_circular_prime(n):
+    if not is_prime(n):
+        return False
+    o = n
+    n = ((n % 10)*(10**int(log10(n))))+(n/10)
+    while o != n:
+        if not is_prime(n):
+            return False
+        else:
+            n = ((n % 10)*(10**int(log10(n))))+(n/10)
+    return True
+
+def digit_to_char(digit):
+    if digit < 10:
+      return str(digit)
+    return chr(ord('a') + digit - 10)
+
+def str_base(number,base):
+    if number < 0:
+      return '-' + str_base(-number, base)
+    (d, m) = divmod(number, base)
+    if d > 0:
+        return str_base(d, base) + digit_to_char(m)
+    return digit_to_char(m)
+
+def is_palindrome(n):
+    rn = str(n)[::-1]
+    return rn == str(n)
