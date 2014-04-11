@@ -216,3 +216,29 @@ def str_base(number,base):
 def is_palindrome(n):
     rn = str(n)[::-1]
     return rn == str(n)
+
+def is_pandigital(n):
+    for i in range(1,10):
+        if i not in str(n):
+            return False
+    return True
+
+def common_factors(n,m):
+    """Returns the first factors between n and m"""
+    result = []
+    if n < m:
+        MAX = int(sqrt(n))
+        if m % n == 0:
+            result.append(n)
+    else:
+        MAX = int(sqrt(m))
+        if n % m == 0:
+            result.append(m)
+    for x in range(2,MAX+1):
+        if n % x == 0 and m % x == 0:
+            result.append(x)
+            if n % (n/x) == 0 and m % (n/x) == 0:
+                result.append(n/x)
+            if n % (m/x) == 0 and m % (m/x) == 0:
+                result.append(m/x)
+    return result
