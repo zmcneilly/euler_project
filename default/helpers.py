@@ -46,12 +46,8 @@ def find_primes(MAX):
 
     for i in range(2,int(sqrt(MAX))+1,1):
       if primes[i]:
-        for j in range(i*i,MAX+1,i):
+        for j in xrange(i*i,MAX+1,i):
           primes[j] = False
-
-    for x in primes:
-      if primes[x]:
-        result += x
 
     return primes
 
