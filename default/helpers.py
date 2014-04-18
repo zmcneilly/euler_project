@@ -238,3 +238,6 @@ def common_factors(n,m):
             if n % (m/x) == 0 and m % (m/x) == 0:
                 result.append(m/x)
     return result
+
+def triangle_num(n):
+    return (n*(n+1))/2
