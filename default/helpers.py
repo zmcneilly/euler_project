@@ -242,9 +242,22 @@ def common_factors(n,m):
 def triangle_num(n):
     return (n*(n+1))/2
 
+def test_triable_num(x):
+    n = (sqrt(8*x+1)-1)/2
+    return n >= 1 and n % 1 == 0
+
 def pentagonal_num(n):
     return n*(3*n-1)/2
 
 def test_pentagonal_num(x):
     n = (sqrt(24*x+1)+1)/6
     return n >= 1 and n % 1 == 0
+
+def hexagonal_num(n):
+    return n*(2*n-1)
+
+def test_hexagonal_num(x):
+    n = (sqrt(8*x+1)+1)/4
+    return n >= 1 and n % 1 == 0
+
+
