@@ -16,7 +16,7 @@ def find_factors(n):
       n = n * -1
   factors=[]
   MAX = int(sqrt(n))+1
-  for i in range(1,MAX,1):
+  for i in range(2,MAX,1):
     if n % i == 0:
       factors.append(i)
       factors.append(n/i)
@@ -260,4 +260,37 @@ def test_hexagonal_num(x):
     n = (sqrt(8*x+1)+1)/4
     return n >= 1 and n % 1 == 0
 
+def distinct_prime_factors(n,pset):
+    """n is a positive intger
+    pset is a set of prime numbers
+    this returns a list of distinct, prime, factors of n"""
+    #factors = find_factors(n)
+    if n in pset or n < 2:
+        return []
+    x = 2
+    factors = []
+    while n % x != 0:
+        x += 1
+    factors.append(x)
+    factors.append(n/x)
+    result = []
+    for f in factors:
+        if f in pset:
+            result.append(f)
+        else:
+            result.extend(distinct_prime_factors(f,pset))
+    return list(set(result))
 
+def num_dpf(n,pset):
+    result = 0
+    plist = list(pset)
+    plist.sort()
+    if n in pset:
+        return result
+    else:
+        for x in plist:
+            if x > sqrt(n):
+                break
+            if n % x == 0:
+                result += 2
+    return result
