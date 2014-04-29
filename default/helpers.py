@@ -1,6 +1,7 @@
 #!env/bin/python
 from math import sqrt,floor,log10,factorial
 import decimal,random
+from itertools import combinations
 collatz_cache = {}
 
 def triangle_num(n):
@@ -294,3 +295,15 @@ def num_dpf(n,pset):
             if n % x == 0:
                 result += 2
     return result
+
+def trim_left_int(n):
+    return n % (10**int(log10(n)))
+
+def trim_right_int(n):
+    return int(n/10)
+
+def nCr(l,n):
+    s = ''
+    for e in l:
+        s = s + str(e)
+    return combinations(s,n)
