@@ -307,3 +307,11 @@ def nCr(l,n):
     for e in l:
         s = s + str(e)
     return combinations(s,n)
+
+def change_base(n,bi,bf):
+    """This function converts the string n from the base bi to the base bf"""
+    l = list(n)
+    t = 0
+    for x in xrange(0,len(l)):
+        t += bi**x * int(l[len(l)-1-x])
+    return str_base(t,bf)
