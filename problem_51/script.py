@@ -12,55 +12,34 @@
 #Find the smallest prime which, by replacing part of the number (not necessarily
 #adjacent digits) with the same digit, is part of an eight prime value family.
 
-import helpers as h
 import sys
+import c_helpers as h
 
-def commonality(n1,n2):
-    s1 = str(n1)
-    s2 = str(n2)
-    r = ''
-    if len(s1) != len(s2):
-        return ('',-1)
-    for x in xrange(0,len(s1)):
-        if s1[x] == s2[x]:
-            r = r + s1[x]
-        else:
-            r = r + '*'
-    return r
-
-def prime_matches(pat,pset):
+def main():
     count = 0
-    matches = []
-    for digit in xrange(0,10):
-        r = int(pat.replace('*',str(digit)))
-        if r % 2 == 0:
-            break
-        if str(r) != pat and r in pset:
-            count += 1
-            matches.append(r)
-    return (matches,count)
+    best = ''
+    MAX = 1000000
+    MIN = 100000
+    pdict = h.find_primes(MAX)
+    plist = []
+    for p in pdict:
+        if pdict[p] and p >= MIN:
+            plist.append(p)
+    pset = set(plist)
+    plist.sort()
 
-count = 0
-best = ''
-MAX = 1000000
-MIN = 100000
-pdict = h.find_primes(MAX)
-plist = []
-for p in pdict:
-    if pdict[p] and p >= MIN:
-        plist.append(p)
-pset = set(plist)
-plist.sort()
+    p = 3
+    while True:
+        for mask in h.nCr(xrange(0,6),p):
+            for prime in plist:
+                prl = list(str(prime))
+                for x in mask:
+                    prl[int(x)] = '*'
+                r = h.prime_matches(''.join(prl),pset)
+                if r[1] >= 8:
+                    print r[0]
+                    sys.exit()
+        p -= 1
 
-p = 3
-while True:
-    for mask in h.nCr(xrange(0,6),p):
-        for prime in plist:
-            prl = list(str(prime))
-            for x in mask:
-                prl[int(x)] = '*'
-            r = prime_matches(''.join(prl),pset)
-            if r[1] >= 8:
-                print r[0]
-                sys.exit()
-    p -= 1
+if __name__ == "__main__":
+    main()

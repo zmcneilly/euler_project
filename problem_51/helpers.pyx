@@ -2,7 +2,6 @@
 from math import sqrt,floor,log10,factorial
 import decimal,random
 from itertools import combinations
-from bitarry import bitarray
 collatz_cache = {}
 
 def triangle_num(n):
@@ -17,7 +16,7 @@ def find_factors(n):
   if n < 0:
       n = n * -1
   factors=[]
-  MAX = int(sqrt(n))+1
+  MAX = int_sqrt(n)+1
   for i in range(2,MAX,1):
     if n % i == 0:
       factors.append(i)
@@ -33,17 +32,20 @@ def is_prime(n):
         return True
     if n % 2 == 0:
         return False
-    MAX = int(sqrt(n))+1
+    MAX = int_sqrt(n)+1
     for i in range(3,MAX,2):
         if n % i == 0:
             return False
     return True
 
-def find_primes(MAX):
-    primes = bitarray(MAX+1)
-    primes.setall(True)
+def find_primes(int MAX):
+    cdef int x, i, j
+    primes = {}
 
-    for i in range(2,int(sqrt(MAX))+1,1):
+    for x in xrange(2,MAX+1,1):
+      primes[x] = True
+
+    for i in range(2,int_sqrt(MAX)+1,1):
       if primes[i]:
         for j in xrange(i*i,MAX+1,i):
           primes[j] = False
@@ -111,7 +113,7 @@ def alphabetic_value(name):
 
 def is_abundant(n):
     result = 1
-    MAX = int(sqrt(n))
+    MAX = int_sqrt(n)
     for i in range(2,MAX+1,1):
       if n % i == 0:
         result+=i
@@ -222,11 +224,11 @@ def common_factors(n,m):
     """Returns the first factors between n and m"""
     result = []
     if n < m:
-        MAX = int(sqrt(n))
+        MAX = int_sqrt(n)
         if m % n == 0:
             result.append(n)
     else:
-        MAX = int(sqrt(m))
+        MAX = int_sqrt(m)
         if n % m == 0:
             result.append(m)
     for x in range(2,MAX+1):
@@ -300,7 +302,9 @@ def trim_left_int(n):
 def trim_right_int(n):
     return int(n/10)
 
-def nCr(l,n):
+def nCr(l, int n):
+    cdef str s
+    cdef int e
     s = ''
     for e in l:
         s = s + str(e)
@@ -313,3 +317,37 @@ def change_base(n,bi,bf):
     for x in xrange(0,len(l)):
         t += bi**x * int(l[len(l)-1-x])
     return str_base(t,bf)
+
+def commonality(int n1, int n2):
+    cdef int x
+    cdef str r, s1, s2
+    s1 = str(n1)
+    s2 = str(n2)
+    r = ''
+    if len(s1) != len(s2):
+        return ('',-1)
+    for x in xrange(0,len(s1)):
+        if s1[x] == s2[x]:
+            r = r + s1[x]
+        else:
+            r = r + '*'
+    return r
+
+def prime_matches(str pat,pset):
+    cdef int count, digit, r
+    count = 0
+    matches = []
+    for digit in xrange(0,10):
+        r = int(pat.replace('*',str(digit)))
+        if r % 2 == 0:
+            break
+        if str(r) != pat and r in pset:
+            count += 1
+            matches.append(r)
+    return (matches,count)
+
+def int_sqrt(int num):
+    cdef int x = 1
+    while x * x < num:
+        x += 1
+    return x - 1

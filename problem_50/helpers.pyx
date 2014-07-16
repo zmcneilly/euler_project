@@ -2,7 +2,6 @@
 from math import sqrt,floor,log10,factorial
 import decimal,random
 from itertools import combinations
-from bitarry import bitarray
 collatz_cache = {}
 
 def triangle_num(n):
@@ -40,8 +39,11 @@ def is_prime(n):
     return True
 
 def find_primes(MAX):
-    primes = bitarray(MAX+1)
-    primes.setall(True)
+    result = 0
+    primes = {}
+
+    for x in xrange(2,MAX+1,1):
+      primes[x] = True
 
     for i in range(2,int(sqrt(MAX))+1,1):
       if primes[i]:
