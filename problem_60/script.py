@@ -20,15 +20,25 @@ def p60_test(to_check):
 def main():
 
     low_score = 1000000
+    _max = 10000
 
-    for x in xrange(3,10000000,2):
-# Need to build the array of primes, this will be expensive
-        if prime_list.is_prime(x) and x not in base:
-            if p60_test(test_list):
-                __s = sum(test_list)
-                if __s < low_score:
-                    print x
-                    low_score = __s
+    for a in xrange(3,_max,2):
+        if not prime_list.is_prime(a):
+            continue
+        for b in xrange(a+2,_max,2):
+            if not prime_list.is_prime(b):
+                continue
+            for c in xrange(b+2,_max,2):
+                if not prime_list.is_prime(c):
+                    continue
+                for d in xrange(c+2,_max,2):
+                    if prime_list.is_prime(d):
+                        test_list = [a,b,c,d]
+                        if p60_test(test_list):
+                            __s = sum(test_list)
+                            if __s < low_score:
+                                print test_list
+                                low_score = __s
 
     print low_score
 
