@@ -2,7 +2,7 @@
 from math import sqrt,floor,log10,factorial
 import decimal,random
 from itertools import combinations
-from bitarry import bitarray
+from bitarray import bitarray
 collatz_cache = {}
 
 def triangle_num(n):
