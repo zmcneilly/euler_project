@@ -40,6 +40,8 @@ def main():
                         word_count += 1
                 if word_count > 7:
                     print (deciphered_text)
+                    __r = [ ord(c) for c in deciphered_text ]
+                    print sum(__r)
                     return 0
 
 if __name__ == '__main__':
