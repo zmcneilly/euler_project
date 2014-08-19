@@ -335,3 +335,28 @@ def cube_root(n):
             raise ValueError("%d is not a perfect cube" % n)
         seen.add(x)
         steps += 1
+
+
+def continued_fraction_expansion(n):
+    '''
+    This function returns the continued fraction expansion of the square root
+    of an integer as a tuple of (a0, [a1, a2, a3, .. aj]) where aj = 2*a0
+
+    It computes this value using the algorithm found here:
+    http://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Continued_fraction_expansion
+    '''
+
+    m0 = 0
+    d0 = 1
+    a0 = floor(sqrt(n))
+    a = a0
+    m = m0
+    d = d0
+    results = []
+    while a != 2*a0:
+        m = float(d * a - m)
+        d = float((n - m**2) / d)
+        a = floor((a0 + m) / d)
+        results.append(a)
+    return (a0, results)
+
