@@ -1,7 +1,7 @@
 #!/bin/bash
 
 rm -Rf ../*/env/
-virtualenv env
+virtualenv -p python3 env
 env/bin/pip install -r requirements.txt
 rm helpers.py
 rm structures.py
