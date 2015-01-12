@@ -21,6 +21,4 @@ for x in range(1,len(t),1):
         else:
             t[x][x1] = int(t[x][x1])+s2
            
-for x in t:
-    print(x)
-
+print(t[len(t)-1])
